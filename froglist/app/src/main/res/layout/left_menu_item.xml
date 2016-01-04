@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dip"
+    android:orientation="horizontal"
+    android:background="@color/white"
+    android:id="@+id/ll_menu">
+
+    <ImageView
+        android:id="@+id/iv_menu_icon"
+        android:layout_width="0dip"
+        android:layout_weight="0.5"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        ></ImageView>
+
+
+    <TextView
+        android:id="@+id/tv_menu_title"
+        android:layout_width="0dip"
+        android:layout_weight="3"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="我的乐库"
+        android:textSize="25sp"/>
+
+</LinearLayout>
