@@ -5,14 +5,17 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.me.diankun.froglist.adapter.MenuItemAdapter;
 import com.me.diankun.froglist.bean.LvMenuItem;
 import com.me.diankun.froglist.ui.SettingActivity;
+import com.me.diankun.froglist.ui.fragment.TickListFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,11 +69,19 @@ public class MainActivity extends ToolbarActivity {
         mSettingImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Fragment fragment = new SettingFragment();
-//                getSupportFragmentManager().beginTransaction().replace(R.id.fl_container, fragment).commit();
-//                openOrCloseDrawer();
                 Intent intent = new Intent(MainActivity.this, SettingActivity.class);
                 startActivity(intent);
+            }
+        });
+        mLVLeftMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.i("TAG", " i = " + i);
+                switch (i) {
+                    case 1:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fl_container, TickListFragment.newInstance(0)).commit();
+                }
+                openOrCloseDrawer();
             }
         });
     }
