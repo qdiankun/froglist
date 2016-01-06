@@ -2,6 +2,7 @@ package com.me.diankun.froglist;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -10,12 +11,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.me.diankun.froglist.adapter.MenuItemAdapter;
 import com.me.diankun.froglist.bean.LvMenuItem;
+import com.me.diankun.froglist.bean.MyUser;
+import com.me.diankun.froglist.ui.LoginActivity;
 import com.me.diankun.froglist.ui.SettingActivity;
 import com.me.diankun.froglist.ui.fragment.TickListFragment;
+
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,6 +38,10 @@ public class MainActivity extends ToolbarActivity {
     DrawerLayout mDrawerLayout;
     @Bind(R.id.lv_left_menu)
     ListView mLVLeftMenu;
+
+    private LinearLayout ll_login_register;
+    private TextView tv_email;
+
     //设置
     ImageView mSettingImage;
 
@@ -48,6 +60,9 @@ public class MainActivity extends ToolbarActivity {
         initDatas();
         setHeaderView();
         initDrawableToggle();
+
+        // 注册对象
+        EventBus.getDefault().register(this);
     }
 
     private void initDatas() {
@@ -66,6 +81,8 @@ public class MainActivity extends ToolbarActivity {
         mLVLeftMenu.addHeaderView(view);
         mLVLeftMenu.setAdapter(new MenuItemAdapter(mDatas, this));
         mSettingImage = (ImageView) view.findViewById(R.id.iv_setting);
+        ll_login_register = (LinearLayout) view.findViewById(R.id.ll_login_register);
+        tv_email = (TextView) view.findViewById(R.id.tv_email);
         mSettingImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,6 +99,12 @@ public class MainActivity extends ToolbarActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.fl_container, TickListFragment.newInstance(0)).commit();
                 }
                 openOrCloseDrawer();
+            }
+        });
+        ll_login_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActivity(LoginActivity.class);
             }
         });
     }
@@ -135,4 +158,17 @@ public class MainActivity extends ToolbarActivity {
         }
     }
 
+    @Subscriber(tag = "login_success")
+    private void updateMyUser(MyUser myUser) {
+        ll_login_register.setBackgroundColor(Color.TRANSPARENT);
+        tv_email.setText(myUser.getEmail());
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        // 注销
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
 }

@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">froglist</string>
+    <string name="title_activity_login2_fatip">两步验证</string>
+
+    <string name="toast_error_name_null">用户昵称不能为空</string>
+    <string name="toast_error_email_null">邮箱不能为空</string>
+    <string name="toast_error_password_null">密码不能为空</string>
+
+    <string name="network_tips">当前网络不可用,请检查您的网络!</string>
 </resources>

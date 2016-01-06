@@ -59,5 +59,10 @@
 
     <color name="material_blue_500">#009688</color>
     <color name="divide">#ffeeeeee</color>
+    <color name="font_white">#ffffffff</color>
+    <color name="font_white_disable">#7fffffff</color>
+    <color name="font_black_6">#ff666666</color>
+    <color name="task_list_head">#ffe4e4e4</color><color name="font_black_content">#ff222222</color><color name="divide_line">#ffdddddd</color>
+
 
 </resources>

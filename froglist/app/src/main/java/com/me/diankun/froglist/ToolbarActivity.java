@@ -1,7 +1,9 @@
 package com.me.diankun.froglist;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -16,7 +18,9 @@ import butterknife.ButterKnife;
 public abstract class ToolbarActivity extends AppCompatActivity {
 
     @Bind(R.id.toolbar)
-    Toolbar mToolbar;
+    protected Toolbar mToolbar;
+
+    protected ProgressDialog mProgressDialog;
 
 
     @Override
@@ -25,7 +29,16 @@ public abstract class ToolbarActivity extends AppCompatActivity {
         setContentView(getLayoutId());
         ButterKnife.bind(this);
         initToolbar();
+
+        initProgressDialog();
     }
+
+    private void initProgressDialog() {
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setCancelable(false);
+    }
+
 
     protected void initToolbar() {
         if (mToolbar == null)
@@ -70,4 +83,34 @@ public abstract class ToolbarActivity extends AppCompatActivity {
     }
 
     public abstract int getLayoutId();
+
+
+    public void openActivity(Class<? extends Activity> clazz) {
+
+        Intent i = new Intent(this, clazz);
+        startActivity(i);
+    }
+
+    protected void showProgressBar(boolean show) {
+        showProgressBar(show, "");
+    }
+
+    protected void showProgressBar(boolean show, String message) {
+        if (show) {
+            mProgressDialog.setMessage(message);
+            mProgressDialog.show();
+        } else {
+            mProgressDialog.hide();
+        }
+    }
+
+    protected void showProgressBar(boolean show, int message) {
+        String s = getString(message);
+        showProgressBar(show, s);
+    }
+
+    protected void showProgressBar(int messageId) {
+        String message = getString(messageId);
+        showProgressBar(true, message);
+    }
 }

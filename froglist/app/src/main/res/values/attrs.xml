@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AutoComplete">
+        <attr name="emailOnly" format="boolean" />
+        <attr name="darkness" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="Crossed">
+        <attr name="dark" format="boolean" />
+    </declare-styleable>
+</resources>
